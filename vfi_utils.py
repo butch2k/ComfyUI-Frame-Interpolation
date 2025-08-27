@@ -250,6 +250,7 @@ def generic_frame_loop(
             if frame_itr != len(frames) - 2: # Not append last frame unless this batch is the last one
                 frame_batch = frame_batch[:-1]
             frame_batches.append(frame_batch)
+        frame_batches = [frame_batch.cpu() for frame_batch in frame_batches] #Ensure all frames are in cpu
         output_frames = torch.cat(frame_batches)
         print(f"Comfy-VFI done! {len(output_frames)} frames generated at resolution: {output_frames[0].shape}")
         return output_frames
